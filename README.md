@@ -19,11 +19,11 @@ Benötigt wird
 
 ## Installation
 
-Das Setup ist einfach, sofern ein Server mit PHP bereits vorhanden ist. Dann muss nur das Skript konfiguriert werden und einmal am Tag (per cron) gestartet werden.
+Die Installation ist relativ einfach. Sofern ein Server mit PHP bereits vorhanden ist, muss das Skript nur konfiguriert werden und einmal am Tag (per cron) gestartet werden.
 
-Falls ein pihole bereits vorhanden ist (z.B. auf einem Raspberry Pi), so kann dieser verwendet werden, muss aber entsprechend vorbereitet werden:
+Falls ein "pihole" vorhanden ist (z.B. auf einem Raspberry Pi), so kann dieser verwendet werden, muss aber noch entsprechend vorbereitet werden:
 
-Installation auf vorbereiten:
+Installation (auf "pihole") vorbereiten:
 > sudo apt-get update
 
 FTP Server installieren:
