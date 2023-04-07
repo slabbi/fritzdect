@@ -31,10 +31,10 @@ FTP Server installieren:
 > sudo nano /etc/vsftpd.conf
 
 Folgende Zeilen der vsftpd.conf ändern:
-  anonymous_enable=NO
-  local_enable=YES
-  write_enable=YES
-  local_umask=022
+> anonymous_enable=NO
+> local_enable=YES
+> write_enable=YES
+> local_umask=022
 
 FTP Server neu starten:
 > sudo service vsftpd restart
@@ -44,7 +44,7 @@ PHP Pakete installieren:
 > sudo apt install php-gd
 
 Per ftp das Skript fritzdect2xx.php und config.php auf pihole kopieren.
-Einmal prüfen, ob alle PHP Libraries vorhanden sind:
+Prüfen, ob alle PHP Libraries vorhanden sind:
 
 > php dectread.php
 
@@ -57,8 +57,8 @@ und die fehlenden Libraries aktivieren.
 
 Das folgende Shell-Script per ftp im "pi"-Home ablegen:
 
-start.sh:
-  php dectread.php prefix=solar duration=12 withwh=1 withtime=0
+> start.sh:
+> php dectread.php prefix=solar duration=12 withwh=1 withtime=0
 
 Die Rechte für das Shellskript setzen:
 > chmod 0744 start.sh 
@@ -69,7 +69,7 @@ Cron-Jobs setzen:
 Folgende Zeile hinzufügen:
 00 07 * * * /home/pi/start.sh
 
-Das Skript wird jeden Tag um 7 Uhr gestartet.
+Das Skript wird jeden Tag um 7 Uhr gestartet und läuft 12 Stunden (duration=12). Erst nach 12 Stunden ist das Bild finalisiert und enthält alle Daten.
 
 ## Konfiguration
 
@@ -77,27 +77,27 @@ Es kann relativ viel konfiguriert werden:
 
 Zunächst das Login für die Fritzbox:
 
-* $host	   = '192.168.1.1';
-* $user	   = 'admin';
-* $password  = 'admin';
+> $host	   = '192.168.1.1';
+> $user	   = 'admin';
+> $password  = 'admin';
 
 Weitere Konfigurationsmöglichkeiten:
 
-* $duration  = 10;              // max. Laufzeit des Skripts in Stunden
-* $withtime  = 0;               // jeweils nach 15 Minuten die Uhrzeit ausgeben
-* $withwh    = 1;               // jeweils nach $slots Minuten die verbrauchte Energie ausgeben
-* $sensor    = "123456789012";  // auszulesender Sensor (Fritz!DECT 210)
-* $prefix    = "";              // Prefix für Dateiname, wenn nicht angegeben wird die Sensor-ID verwendet
-* $maxwatt   = 640;             // Maximal zu erwartende Leistung (1 Watt = [1 x Skalierung] Pixel)
-* $scale     = 1.0;             // Skalierung der y-Achse
-* $scalewh   = 1;               // Messung in Wh (1) oder kWh (1000)
-* // $slots  = array(0, 30);    // verbrauchte Energie bei Minute 0 und Minute 30 anzeigen
-* $slots     = array(0);        // verbrauchte Energie bei Minute 0 anzeigen
-
-* $latitude  = 51.529086;       // benötigt für die Berechnung von Sonnenaufgang und Sonnenuntergang
-* $longitude = 6.9446888;
-
-* $pubcurfile  = "./image.png";	// "" keine Datei, "./image.png" gleiches Verzeichnis, "/var/www/html/image.png" Webserver (write permission 0x777)
+> $duration  = 10;              // max. Laufzeit des Skripts in Stunden
+> $withtime  = 0;               // jeweils nach 15 Minuten die Uhrzeit ausgeben
+> $withwh    = 1;               // jeweils nach $slots Minuten die verbrauchte Energie ausgeben
+> $sensor    = "123456789012";  // auszulesender Sensor (Fritz!DECT 210)
+> $prefix    = "";              // Prefix für Dateiname, wenn nicht angegeben wird die Sensor-ID verwendet
+> $maxwatt   = 640;             // Maximal zu erwartende Leistung (1 Watt = [1 x Skalierung] Pixel)
+> $scale     = 1.0;             // Skalierung der y-Achse
+> $scalewh   = 1;               // Messung in Wh (1) oder kWh (1000)
+> // $slots  = array(0, 30);    // verbrauchte Energie bei Minute 0 und Minute 30 anzeigen
+> $slots     = array(0);        // verbrauchte Energie bei Minute 0 anzeigen
+>
+> $latitude  = 51.529086;       // benötigt für die Berechnung von Sonnenaufgang und Sonnenuntergang
+> $longitude = 6.9446888;
+>
+> $pubcurfile  = "./image.png";	// "" keine Datei, "./image.png" gleiches Verzeichnis, "/var/www/html/image.png" Webserver (write permission 0x777)
 
 Das "$pubcurfile" enthält nur den aktuell gemessenen Wert und kann als Statusanzeige verwendet werden.
 Im Ordner ".\pictures" wird pro Tag jeweils eine Grafik erzeugt und eine CSV-Datei mit den gemessenen Werten.
@@ -107,12 +107,12 @@ Die Parameter können auch per Kommandozeile übergeben werden und überschreibe
 
 Wer größere Verbrucher, wie z.B. eine Waschmaschine, auswerten möchte, kann z.B. folgende Konfiguration verwenden:
 
-* $duration  = 10;
-* $withtime  = 0;
-* $withwh    = 1;
-* $sensor    = "123456789012";
-* $prefix    = "wm";
-* $maxwatt   = 2500;
-* $scale     = 0.25;
-* $scalewh   = 1;
-* $slots     = array(0, 30);    // verbrauchte Energie bei Minute 0 und Minute 30 anzeigen
+> $duration  = 10;
+> $withtime  = 0;
+> $withwh    = 1;
+> $sensor    = "123456789012";
+> $prefix    = "wm";
+> $maxwatt   = 2500;
+> $scale     = 0.25;
+> $scalewh   = 1;
+> $slots     = array(0, 30);    // verbrauchte Energie bei Minute 0 und Minute 30 anzeigen
