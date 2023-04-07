@@ -48,6 +48,7 @@ PHP Pakete installieren:
 > sudo apt install php-gd
 
 Per ftp das Skript fritzdect2xx.php und config.php auf pihole kopieren.
+
 Prüfen, ob alle PHP Libraries vorhanden sind:
 
 > php dectread.php
@@ -56,6 +57,7 @@ Es sollte keine Fehlermeldung ausgegeben werden. Mit "^C" das Skript abbrechen.
 
 Bei Fehlern:
 > sudo nano /etc/php/7.4/cli/php.ini
+
 und die fehlenden Libraries aktivieren.
 
 
