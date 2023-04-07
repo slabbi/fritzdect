@@ -6,7 +6,7 @@
 * [Bemerkungen](#Bemerkungen)
 
 ## Allgemeine Informationen
-Das Skript erlaubt die Verbrauchsdaten eines an einer Fritz!DECT 200 bzw. 210 Steckdose angeschlossenen Geräts auszulesen und erzeugt jeweils pro Tag eine entsprechende Grafik.
+Das Skript erlaubt die Verbrauchsdaten eines an einer Fritz!DECT 200 bzw. 210 Steckdose angeschlossenen Geräts auszulesen und erzeugt jeweils pro Tag ein Diagram.
 Entstanden ist das Skript, um die mit einem 600 Watt Balkonkraftwerk erzeute Leistung zu visualisieren; es kann aber auch zur Visualisierung von Verbräuchen an der Steckdose 
 verwendet werden.
 	
