@@ -135,6 +135,6 @@ $slots     = array(0, 30);    // verbrauchte Energie bei Minute 0 und Minute 30 
 
 Wer schnell die erzeugten Grafiken herunterladen möchte, kann dieses z.B. wie folgt (Beispiel: Monat April 2023)
 
-> set remote="ftp://<pihole>/pictures/solar-2023-04-[01-31].png"
+> set remote="ftp://pihole/pictures/solar-2023-04-[01-31].png"
 > 
 > curl --user "pihole_user":"pihole_password" --insecure %remote% -O --output-dir .\pictures\
