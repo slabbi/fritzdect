@@ -30,8 +30,9 @@ $scale     = 1.0;				// Skalierung der y-Achse
 $scalewh   = 1;					// Messung in Wh (1) oder kWh (1000)
 // $slots  = array(0, 30);		// verbrauchte Energie bei Minute 0 und Minute 30 anzeigen
 $slots     = array(0);			// verbrauchte Energie bei Minute 0 anzeigen
+$docsv     = 0;                 // CSV-Dateien erzeugen?
 
-$latitude  = 51.529086;
-$longitude = 6.9446888;
+$latitude  = 51;
+$longitude = 6;
 
 $pubcurfile  = "./image.png";	// "" no file, "./image.png" same directory, "/var/www/html/image.png" webserver directory (set write permission to 0x777)

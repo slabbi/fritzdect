@@ -284,11 +284,13 @@ for ($min = 0; $min < $duration*60; $min++) {
 
 	ImagePNG($im, $file.".png");
 
-	$fout = fopen($file.".csv", "a");
-	if ($fout>=0) {	
-		$line = date("d.m.Y", $now) . ";" . date("H:i", $now) . ";" . $max . "\n";
-		fputs($fout, $line);
-		fclose($fout);
+	if ($docsv) {
+		$fout = fopen($file.".csv", "a");
+		if ($fout>=0) {	
+			$line = date("d.m.Y", $now) . ";" . date("H:i", $now) . ";" . $max . "\n";
+			fputs($fout, $line);
+			fclose($fout);
+		}
 	}
 
 	if ($pubcurfile) {
@@ -363,13 +365,14 @@ foreach($energy->stats as $stat){
 ImagePNG($im, $file.".png");
 ImageDestroy($im);
 
-$fout = fopen($filecsv.".csv", "a");
-if ($fout>=0) {	
-	$line = date("d.m.Y", $now) . ";" . ($energyend - $energystart) . ";" . $srise . ";" . $sset . "\n";
-	fputs($fout, $line);
-	fclose($fout);
+if ($docsv) {
+	$fout = fopen($filecsv.".csv", "a");
+	if ($fout>=0) {	
+		$line = date("d.m.Y", $now) . ";" . ($energyend - $energystart) . ";" . $srise . ";" . $sset . "\n";
+		fputs($fout, $line);
+		fclose($fout);
+	}
 }
-
 exit;
 
 // ------------------------------------------------------------------------------------------
