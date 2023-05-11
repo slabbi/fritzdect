@@ -178,6 +178,8 @@ $energyold       = (int)(intval($xmlstring)/$scalewh);		// ggf. Skalierung in kW
 $energystart     = intval($xmlstring);
 $energystarttime = "";
 
+// $duration = 0;	// TEST
+
 for ($min = 0; $min < $duration*60; $min++) {
 
 	// --------------------------------------------------------------------------------------
@@ -327,6 +329,32 @@ $w = imagefontwidth(2) * (strlen($energyday));
 $h = imagefontheight(2);
 ImageFilledRectangle($im, xpos(8), ypos(8), xpos(8+$w), ypos(8+$h), $white);
 ImageString($im, 2, xpos(8), ypos(8+$h), $energyday, $black);
+
+// ------------------------------------------------------------------------------------------
+// Gesamtenergie im letzten Jahr (nur wenn Skript komplett durchläuft)
+// ------------------------------------------------------------------------------------------
+
+$xmlstring = getswitchcmd($host, "getbasicdevicestats", $ain, $sid);
+$xml = simplexml_load_string($xmlstring);
+$energy = $xml->energy;
+foreach($energy->stats as $stat){
+	$att = $stat->attributes();
+	
+	$valuecnt = $att->count;
+	$values   = explode(",", $stat[0]);
+	$valuesum = round(array_sum($values)/1000);
+
+	// echo "Werte: $valuecnt\n\r";      // 31=letzten 31 Tage
+	// echo "Summe: $valuesum kWh\n\r";  // 12=letzten 12 Monate
+	if ($valuecnt == 12) {
+		$energyyear = "" . $valuesum . " kWh [Jahr]";
+
+		$w = imagefontwidth(2) * (strlen($energyyear));
+		$h = imagefontheight(2);
+		ImageFilledRectangle($im, xpos(8), ypos(8 + 2*$h), xpos(8+$w), ypos(8+$h + 2*$h), $white);
+		ImageString($im, 2, xpos(8), ypos(8+$h + 2*$h), $energyyear, $black);
+	}
+}
 
 // ------------------------------------------------------------------------------------------
 // Bild speichern
