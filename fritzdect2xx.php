@@ -315,7 +315,7 @@ for ($min = 0; $min < $duration*60; $min++) {
 	while (time() < $now60)
 	   time_sleep_until($now60);
 
-	if (time() > $sunset+3600)	// forced exit one hour after sunset
+	if (time() > $sunset+1800)	// forced exit 30 minutes after sunset
 		break;
 }
 
@@ -372,6 +372,11 @@ if ($docsv) {
 		fputs($fout, $line);
 		fclose($fout);
 	}
+}
+if ($bottoken) {
+	$now = time();
+	$text = "PV-Info: " . date("d.m.Y", $now) . " - " . ($energyend - $energystart) . " Wh [" . $srise . "-" . $sset . "]";
+	$ret = telegramsendtext($bottoken, $chatid, $text);
 }
 exit;
 
@@ -449,5 +454,11 @@ function getswitchcmd($host, $cmd, $ain, $sid) {
 									'ain=' . $ain .
 									'&sid=' . $sid .
 									'&switchcmd=' . $cmd, false, $context));
+	return $ret;
+}
+
+function telegramsendtext($bottoken, $chatid, $text) {
+	$url = "https://api.telegram.org/bot" . $bottoken . "/sendMessage?chat_id=" . $chatid . "&text=" . $text;
+	$ret = rtrim(file_get_contents($url, false, null));
 	return $ret;
 }

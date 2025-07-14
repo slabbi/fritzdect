@@ -36,3 +36,6 @@ $latitude  = 51;
 $longitude = 6;
 
 $pubcurfile  = "./image.png";	// "" no file, "./image.png" same directory, "/var/www/html/image.png" webserver directory (set write permission to 0x777)
+
+$bottoken  = "";                // insert Telegram API token when daily statistics should be sent
+$chatid    = "";                // insert Telegram Chat ID (always starts with a "-")
