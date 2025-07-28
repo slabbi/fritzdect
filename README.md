@@ -55,6 +55,7 @@ PHP Konfiguration anpassen:
 > sudo chmod 0666 /etc/php/7.4/cli/php.ini
 >
 > sudo chmod 0666 /etc/php/7.4/cgi/php.ini
+
 und ";extension=curl" in "extension=curl" ändern.
 
 Per ftp das Skript fritzdect2xx.php und config.php auf pihole kopieren.
@@ -120,8 +121,8 @@ $slots     = array(0);        // verbrauchte Energie bei Minute 0 anzeigen
 $latitude  = 51.529086;       // benötigt für die Berechnung von Sonnenaufgang und Sonnenuntergang
 $longitude = 6.9446888;
 
-$bottoken  = "";              // insert Telegram API token when daily statistics should be sent
-$chatid    = "";              // insert Telegram Chat ID (always starts with a "-")
+$bottoken  = "";              // Telegram API Token einfügen, wenn die Statistik einmal am Tag versendet werden soll
+$chatid    = "";              // Telegram Chat ID (beginnt immer mit einem "-")
 
 $pubcurfile  = "./image.png";	// "" keine Datei, "./image.png" gleiches Verzeichnis, "/var/www/html/image.png" Webserver (write permission 0x777)
 ```
