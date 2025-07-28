@@ -37,5 +37,5 @@ $longitude = 6;
 
 $pubcurfile  = "./image.png";	// "" no file, "./image.png" same directory, "/var/www/html/image.png" webserver directory (set write permission to 0x777)
 
-$bottoken  = "";                // insert Telegram API token when daily statistics should be sent
-$chatid    = "";                // insert Telegram Chat ID (always starts with a "-")
+$bottoken  = "";                // Telegram API Token einfügen, wenn die Statistik einmal am Tag versendet werden soll
+$chatid    = "";                // Telegram Chat ID (beginnt immer mit einem "-")

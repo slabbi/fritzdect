@@ -45,7 +45,17 @@ FTP Server neu starten:
 PHP Pakete installieren:
 > sudo apt-get install php-mbstring
 > 
-> sudo apt install php-gd
+> sudo apt-get install php-gd
+>
+> sudo apt-get install curl
+>
+> sudo apt-get install php7.4-curl
+
+PHP Konfiguration anpassen:
+> sudo chmod 0666 /etc/php/7.4/cli/php.ini
+>
+> sudo chmod 0666 /etc/php/7.4/cgi/php.ini
+und ";extension=curl" in "extension=curl" ändern.
 
 Per ftp das Skript fritzdect2xx.php und config.php auf pihole kopieren.
 
@@ -116,6 +126,13 @@ $pubcurfile  = "./image.png";	// "" keine Datei, "./image.png" gleiches Verzeich
 Das "$pubcurfile" enthält nur den aktuell gemessenen Wert und kann als Statusanzeige verwendet werden.
 Im Ordner ".\pictures" wird pro Tag jeweils eine Grafik erzeugt und eine CSV-Datei mit den gemessenen Werten.
 Die Parameter können auch per Kommandozeile übergeben werden und überschreiben dann die in der config.php vorhandenen Werte.
+
+Wenn das Bild als Telegram Bot versendet werden soll, die folgenden zwei Zeilen ausfüllen:
+
+```
+$bottoken  = "";              // Telegram API Token einfügen, wenn die Statistik einmal am Tag versendet werden soll
+$chatid    = "";              // Telegram Chat ID (beginnt immer mit einem "-")
+```
 
 ## Bemerkungen
 

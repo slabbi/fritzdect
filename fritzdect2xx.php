@@ -1,7 +1,7 @@
 <?php
 // ------------------------------------------------------------------------------------------
 // Title          fritz!dect read
-// Author         (c) 2022-2023 Stephan Slabihoud
+// Author         (c) 2022-2025 Stephan Slabihoud
 // License        This is free software and you may redistribute it under the GPL.
 //                This software comes with absolutely no warranty. 
 //                Use at your own risk. For details, see the license at
@@ -161,8 +161,10 @@ if (!file_exists($file.".png")) {
 	}
 }
 
-$srise = "Sonnenaufgang:   " . date("H:i", $sun_info["sunrise"]);
-$sset  = "Sonnenuntergang: " . date("H:i", $sun_info["sunset"]);
+$srise_s = date("H:i", $sun_info["sunrise"]);
+$sset_s  = date("H:i", $sun_info["sunset"]);
+$srise   = "Sonnenaufgang:   " . date("H:i", $sun_info["sunrise"]);
+$sset    = "Sonnenuntergang: " . date("H:i", $sun_info["sunset"]);
 $w = imagefontwidth(2) * (strlen($srise));
 $h = imagefontheight(2);
 ImageFilledRectangle($im, xpos(8), ypos($height-8), xpos(8+$w), ypos($height - 8 - 2*$h), $white);
@@ -368,15 +370,16 @@ ImageDestroy($im);
 if ($docsv) {
 	$fout = fopen($filecsv.".csv", "a");
 	if ($fout>=0) {	
-		$line = date("d.m.Y", $now) . ";" . ($energyend - $energystart) . ";" . $srise . ";" . $sset . "\n";
+		$line = date("d.m.Y", $now) . ";" . ($energyend - $energystart) . ";" . $srise_s . ";" . $sset_s . "\n";
 		fputs($fout, $line);
 		fclose($fout);
 	}
 }
 if ($bottoken) {
 	$now = time();
-	$text = "PV-Info: " . date("d.m.Y", $now) . " - " . ($energyend - $energystart) . " Wh [" . $srise . "-" . $sset . "]";
-	$ret = telegramsendtext($bottoken, $chatid, $text);
+	$text = "PV-Info: " . date("d.m.Y", $now) . " - " . ($energyend - $energystart) . " Wh [" . $srise_s . "-" . $sset_s . "]";
+//	$ret = telegramsendtext($bottoken, $chatid, $text);
+	$ret = telegramsendimage($bottoken, $chatid, $text, $file.".png");
 }
 exit;
 
@@ -461,4 +464,37 @@ function telegramsendtext($bottoken, $chatid, $text) {
 	$url = "https://api.telegram.org/bot" . $bottoken . "/sendMessage?chat_id=" . $chatid . "&text=" . $text;
 	$ret = rtrim(file_get_contents($url, false, null));
 	return $ret;
+}
+
+function telegramsendimage($bottoken, $chatid, $text, $image) {
+	$url = "https://api.telegram.org/bot" . $bottoken . "/sendPhoto";
+
+	$data = [
+		'chat_id' => $chatid,
+		'photo' => new CURLFile(realpath($image)),
+		'caption' => $text
+	];
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER , false);
+
+	$response = curl_exec($ch);
+
+	if ($response === false) {
+		echo 'cURL Fehler: ' . curl_error($ch);
+	} else {
+		$responseData = json_decode($response, true);
+		if ($responseData['ok']) {
+			echo 'Bild erfolgreich gesendet!';
+		} else {
+			echo 'Fehler beim Senden: ' . $responseData['description'];
+		}
+	}
+
+	curl_close($ch);
+	return $response;
 }
