@@ -120,6 +120,9 @@ $slots     = array(0);        // verbrauchte Energie bei Minute 0 anzeigen
 $latitude  = 51.529086;       // benötigt für die Berechnung von Sonnenaufgang und Sonnenuntergang
 $longitude = 6.9446888;
 
+$bottoken  = "";              // insert Telegram API token when daily statistics should be sent
+$chatid    = "";              // insert Telegram Chat ID (always starts with a "-")
+
 $pubcurfile  = "./image.png";	// "" keine Datei, "./image.png" gleiches Verzeichnis, "/var/www/html/image.png" Webserver (write permission 0x777)
 ```
 
